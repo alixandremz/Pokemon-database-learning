@@ -2,39 +2,71 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pokédex SQL Game: descubra o pokémon secreto escrevendo consultas SQL.">
   <title>Pokédex SQL Game</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="pokedex">
-    <div class="lights">
-      <div class="big-light"></div>
-      <div class="small-light red"></div>
-      <div class="small-light yellow"></div>
-      <div class="small-light green"></div>
-    </div>
-
-    <div class="screen-frame">
-      <div id="screen" class="screen">carregando partida...</div>
-    </div>
-
-    <div class="score-row">
-      <span>pontos restantes</span>
-      <span id="score">--</span>
-    </div>
-
-    <div class="controls">
-      <textarea id="sql-input" rows="3" placeholder="SELECT height FROM mystery_pokemon;"></textarea>
-      <button id="run-btn">executar query</button>
-
-      <div class="guess-row">
-        <input id="guess-input" type="text" placeholder="nome do pokémon">
-        <button id="guess-btn">arriscar palpite</button>
+  <main class="pokedex" aria-label="Pokédex SQL Game">
+    <header class="pokedex-top">
+      <div class="lights" aria-hidden="true">
+        <div class="big-light"></div>
+        <div class="small-light red"></div>
+        <div class="small-light yellow"></div>
+        <div class="small-light green"></div>
       </div>
+      <h1 class="title">Pokédex SQL<span>descubra o pokémon secreto</span></h1>
+      <div class="score" aria-live="polite">
+        <span class="score-label">pontos</span>
+        <output id="score" class="score-value">--</output>
+      </div>
+    </header>
 
-      <button id="new-game-btn" class="secondary">jogar de novo</button>
+    <div class="score-bar" id="score-bar" aria-hidden="true"></div>
+
+    <div class="pokedex-body">
+      <section class="screen-panel">
+        <div class="screen-frame">
+          <div class="screen" id="screen" role="status" aria-live="polite">
+            <div id="output" class="screen-output">carregando partida...</div>
+            <figure class="reveal" id="reveal" hidden>
+              <img id="reveal-img" alt="">
+              <figcaption id="reveal-name"></figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="control-panel">
+        <div class="field">
+          <label for="sql-input">consulta SQL</label>
+          <textarea id="sql-input" rows="3" spellcheck="false"
+            placeholder="SELECT height FROM mystery_pokemon;"></textarea>
+        </div>
+        <button id="run-btn" class="primary">executar query <kbd>Ctrl</kbd>+<kbd>Enter</kbd></button>
+
+        <div class="field guess-field">
+          <label for="guess-input">palpite</label>
+          <div class="guess-row">
+            <input id="guess-input" type="text" autocomplete="off"
+              placeholder="nome do pokémon em inglês">
+            <button id="guess-btn" class="primary">arriscar</button>
+          </div>
+        </div>
+
+        <button id="new-game-btn" class="secondary">nova partida</button>
+      </section>
     </div>
-  </div>
+
+    <nav class="tabs" role="tablist" aria-label="Ajuda">
+      <button class="tab" role="tab" aria-selected="true" data-panel="help">ajuda</button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="schema">tabelas</button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="rules">regras</button>
+    </nav>
+
+    <div class="panel" id="panel" role="tabpanel"></div>
+  </main>
 
   <script src="script.js"></script>
 </body>

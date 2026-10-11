@@ -43,3 +43,8 @@ def state(session_id: str):
         return game.get_state(session_id)
     except KeyError:
         raise HTTPException(status_code=404, detail="sessão não encontrada")
+
+
+@router.get("/schema")
+def schema():
+    return game.get_schema()
